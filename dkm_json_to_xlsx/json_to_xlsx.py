@@ -1,8 +1,15 @@
 from typing import Dict
 
 import dkm_lib_json.json_util
+from dkm_lib_json import json_util
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
+
+
+def wrap_arr_json_in_root_key(json_in_fp:str, json_out_fp:str,root_key:str):
+    json_str = json_util.load_json_from_file(json_in_fp)
+    wrapped_json = f'{{ "{root_key}": ' + json_str + f'}}'
+    json_util.save_json_to_file(json_out_fp, wrapped_json)
 
 
 def write_header(ws:Worksheet,row_idx:int, row:Dict[str, any]):
